@@ -49,18 +49,18 @@ for (let i=0; i<1100; i++){
 }
 // ---------- missions & collectibles ----------
 const HER_NAME = 'you';   // <- put her name here
-const LETTER = `Dear ${HER_NAME},\n\nYou found every egg, every berry, every chocolate and all 13 bracelets.\n\nI planted this whole valley for you, because you make ordinary days feel golden.\n\nWrite your own message here ♥`;
-const inv = {kinder:0, berry:0, choc:0, bracelet:0}; let cake = false, gold = null, finished = false;
+const LETTER = `Dear ${HER_NAME},\n\nYou found every egg, every berry, every chocolate and all 13 stars.\n\nI planted this whole valley for you, because you make ordinary days feel golden.\n\nWrite your own message here ♥`;
+const inv = {kinder:0, berry:0, choc:0, star:0}; let cake = false, gold = null, finished = false;
 const MISSIONS = [
   {k:'kinder',  t:'Find 5 Kinder Joy eggs 🥚',            need:5,  win:'Surprise inside! 🥚'},
   {k:'berry',   t:'Pick 10 blueberries 🫐',               need:10},
   {k:'cake',    t:'Bake blueberry cheesecake at cottage 🍰', need:1, win:'Cheesecake is ready 🍰'},
   {k:'choc',    t:'Collect 7 chocolates 🍫',               need:7,  win:'Sweet tooth satisfied 🍫'},
-  {k:'bracelet',t:'Find 13 friendship bracelets 💜',       need:13, win:'Eras unlocked ✨'},
+  {k:'star',t:'Catch 13 fallen stars ⭐',       need:13, win:'you\'re 11:11 ✨'},
 ];
 const count = k => k==='cake' ? (cake?1:0) : inv[k];
 const items = [];
-for (const [type, n] of [['kinder',5],['berry',12],['choc',7],['bracelet',13]]){
+for (const [type, n] of [['kinder',5],['berry',12],['choc',7],['star',13]]){
   for (let i=0;i<n;i++){
     let x, y; do { x = 120+rnd()*(WW-240); y = 120+rnd()*(WH-240); } while (inPond(x,y,40) || Math.hypot(x-cottage.x,y-cottage.y)<170 || Math.hypot(x-1600,y-2600)<120);
     items.push({type, x, y, ph:rnd()*6, got:false});
@@ -95,8 +95,10 @@ function drawItem(it, t){
     ctx.fillStyle = '#4b2a14'; ctx.fillRect(x-8, y-6, 16, 12);
     ctx.strokeStyle = '#2d180a'; ctx.lineWidth = 1; ctx.strokeRect(x-8, y-6, 16, 12); ctx.beginPath(); ctx.moveTo(x, y-6); ctx.lineTo(x, y+6); ctx.moveTo(x-8, y); ctx.lineTo(x+8, y); ctx.stroke();
   } else {
-    const cols = ['#c77dff','#ff8fd0','#7dd3ff','#fff'];
-    for (let i=0;i<10;i++){ const a = i/10*6.283; ctx.fillStyle = cols[i%4]; ctx.beginPath(); ctx.arc(x+Math.cos(a)*8, y+Math.sin(a)*8, 2.6, 0, 7); ctx.fill(); }
+    ctx.fillStyle = '#ffe066'; ctx.beginPath();
+    for (let i=0;i<10;i++){ const a = -Math.PI/2 + i*Math.PI/5, r = i%2 ? 4 : 10; ctx.lineTo(x+Math.cos(a)*r, y+Math.sin(a)*r); }
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = '#ffb703'; ctx.lineWidth = 1; ctx.stroke();
   }
 }
 // ---------- sound (synthesized, no files) ----------
@@ -121,12 +123,12 @@ const SURPRISES = [
   'Inside the egg: "Progress counts, even when it\'s slow." 🐢',
   'Inside the egg: "You\'ve survived every bad day so far. Your record is 100%." 🏆',
 ];
-const ERAS = ['Fearless','Speak Now','Red','1989','Reputation','Lover','folklore','evermore','Midnights','The Tortured Poets Department','Debut','Taylor\'s Version','The Life of a Showgirl'];
+const WISHES = ['Wish: a day with zero stress','Wish: a big win this week','Wish: more time for what you love','Wish: courage for the next big thing','Wish: a really good meal today','Wish: sleep that actually refreshes','Wish: an idea that clicks','Wish: good news, soon','Wish: a trip somewhere new','Wish: calm in a busy week','Wish: a laugh you can\'t stop','Wish: confidence on tough days','Wish: all of the above'];
 function itemEffect(it){
   if (it.type==='kinder'){ toast(SURPRISES[(inv.kinder-1) % SURPRISES.length]); sfx(500,.25,'square',.04,900); }
   else if (it.type==='berry'){ sfx(900,.08,'sine',.07,1200); }
   else if (it.type==='choc'){ boostUntil = performance.now()+6000; toast('Sugar rush! Speed boost 🍫⚡'); sfx(300,.3,'sawtooth',.04,800); }
-  else { toast('💜 ' + ERAS[(inv.bracelet-1) % ERAS.length] + ' (' + inv.bracelet + '/13)'); chime(); }
+  else { toast('⭐ ' + WISHES[(inv.star-1) % WISHES.length] + ' (' + inv.star + '/13)'); chime(); }
 }
 
 // ---------- dog ----------
