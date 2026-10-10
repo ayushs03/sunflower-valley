@@ -406,16 +406,17 @@ function drawBoy(t, p, cnt){
   const skin = '#e8b890', butter = '#f7e48a', butterDk = '#e6d06a';
   ctx.save(); ctx.translate(p.x, p.y); ctx.scale(1.6, 1.6);
   ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(0, 2, 16, 6, 0, 0, 7); ctx.fill();
-  // black jeans
-  ctx.strokeStyle = '#17171c'; ctx.lineWidth = 5.4; ctx.lineCap = 'round';
+  // light blue jeans
+  ctx.strokeStyle = '#8ec1ea'; ctx.lineWidth = 5.4; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(-3.6, -19-bob); ctx.lineTo(-3.6+step, -2); ctx.moveTo(3.6, -19-bob); ctx.lineTo(3.6-step, -2); ctx.stroke();
+  ctx.strokeStyle = '#6fa3d2'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(-3.6+step*.5, -14-bob); ctx.lineTo(-3.6+step*.9, -4); ctx.moveTo(3.6-step*.5, -14-bob); ctx.lineTo(3.6-step*.9, -4); ctx.stroke();
   ctx.fillStyle = '#f2f2f2'; ctx.beginPath(); ctx.ellipse(-3.6+step+d*1.2, 0, 5, 2.6, 0, 0, 7); ctx.ellipse(3.6-step+d*1.2, 0, 5, 2.6, 0, 0, 7); ctx.fill();
   // butter-yellow shirt
   ctx.fillStyle = butter; ctx.beginPath();
   ctx.moveTo(-8, -38-bob); ctx.quadraticCurveTo(0, -41-bob, 8, -38-bob);
   ctx.lineTo(8.6, -17-bob); ctx.lineTo(-8.6, -17-bob); ctx.closePath(); ctx.fill();
   ctx.fillStyle = butterDk; ctx.fillRect(-8.6, -19-bob, 17.2, 2.4);
-  ctx.fillStyle = '#17171c'; ctx.fillRect(-8.2, -17-bob, 16.4, 2.2);
+  ctx.fillStyle = '#6b4a2e'; ctx.fillRect(-8.2, -17-bob, 16.4, 2.2);
   // arms: short sleeves + forearms
   const asw = step*.5;
   ctx.lineCap = 'round'; ctx.lineWidth = 4;
@@ -432,10 +433,16 @@ function drawBoy(t, p, cnt){
   ctx.fillStyle = skin; ctx.beginPath(); ctx.ellipse(d*1.4, -45.3-bob, 3.4, 1.9, 0, 0, 7); ctx.fill();
   ctx.restore();
   ctx.strokeStyle = '#9a5a45'; ctx.lineWidth = .9; ctx.beginPath(); ctx.arc(d*1.4, -46.3-bob, 2, .25, 2.9); ctx.stroke();
-  // short dark hair
-  ctx.fillStyle = '#2b1d14';
-  ctx.beginPath(); ctx.arc(0, -50-bob, 9.5, Math.PI*1.04, Math.PI*1.96); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(d*-2, -57-bob, 7.5, 3.2, d*.15, 0, 7); ctx.fill();
+  // wavy swept-back hair with a lifted front quiff
+  ctx.fillStyle = '#6a4326';
+  ctx.beginPath(); ctx.arc(0, -50-bob, 9.7, Math.PI, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(-9.5, -51-bob);
+  ctx.bezierCurveTo(-11, -63-bob, d*3-3, -68-bob, d*9+1, -59-bob);
+  ctx.quadraticCurveTo(d*9, -55-bob, d*4, -55.5-bob);
+  ctx.quadraticCurveTo(-3, -54-bob, -9.5, -51-bob); ctx.fill();
+  ctx.strokeStyle = '#8a5d38'; ctx.lineWidth = 1; ctx.beginPath();
+  ctx.moveTo(-6, -58-bob); ctx.quadraticCurveTo(-1, -64-bob, d*5, -60-bob);
+  ctx.moveTo(-7, -54-bob); ctx.quadraticCurveTo(-2, -59-bob, d*3, -56.5-bob); ctx.stroke();
   // eyes + round specs
   const ex = d*2.2;
   ctx.fillStyle = '#20150e'; ctx.beginPath(); ctx.arc(ex-3.3, -49-bob, 1, 0, 7); ctx.arc(ex+3.3, -49-bob, 1, 0, 7); ctx.fill();
