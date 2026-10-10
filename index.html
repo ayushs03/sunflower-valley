@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://0.peerjs.com wss://0.peerjs.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' wss://broker.hivemq.com:8884 wss://broker.emqx.io:8084; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Sunflower Valley</title>
 <style>
@@ -40,7 +40,7 @@
   <div id="mpact"><button id="mphost">👦 Create room (I'm the boy)</button><div style="margin-top:8px">or join with a code (play the girl):</div><input id="mpcode" maxlength="6" placeholder="CODE" autocomplete="off" spellcheck="false"><button id="mpjoin">Join</button></div>
   <div id="mpshare" style="display:none">Room code: <span class="code" id="mpc"></span><br><button id="mpcopy">Copy invite message</button></div>
 </div>
-<script src="peerjs.min.js"></script>
+<script src="mqtt.min.js"></script>
 <script src="game.js"></script>
 <script src="net.js"></script>
 </body>
